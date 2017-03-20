@@ -39,51 +39,49 @@ if ( documents.length > 0 )
 
         // Check whether the last five characters are digits
         newDoc = isNaN(parseInt(lastFive))
+        
+        // Create the needName switch
+        needName = 1
 
         // If this is a new document, then add _00000 to the file name
         if (newDoc) {
             // Make the new file name
             newFileName = fileNameNoExtension + '_00000';
+            allButFive = fileNameNoExtension;
+            lastFive = '00000';
             
-            // Do the saving
-            makeFile(fileType.toLowerCase(), docRef, newFileName)
+            // Do the saving. Check whether file_00000 exists first.
+            needName = makeFile(fileType.toLowerCase(), docRef, newFileName)
             
         }
-        // Otherwise, find the lowest number of the file name that does not exist, starting at the index of the file name's digits
-        else {
-            // Create the needName switch
-            needName = 1
+        // Otherwise, find the lowest number of the file name that does not exist, starting at the index of the file name's digits. Get the file number
+        fileNumber = Number(lastFive);
 
-            // Get the file number
-            fileNumber = Number(lastFive);
-
-            while (needName) {
-                // Increment the file number
-                fileNumber = fileNumber + 1;
-            
-                // Make the file number 4 digits with zeros
-                switch ((fileNumber.toString()).length) {
-                    case 1:
-                        newFileName = allButFive + '_0000' + fileNumber.toString();
-                        break;
-                    case 2:
-                        newFileName = allButFive + '_000' + fileNumber.toString();
-                        break;
-                    case 3:
-                        newFileName = allButFive + '_00' + fileNumber.toString();
-                        break;
-                    case 4:
-                        newFileName = allButFive + '_0' + fileNumber.toString();
-                        break;
-                    case 5:
-                        newFileName = allButFive + "_" + fileNumber.toString();
-                        break;
-                }
-                // Do the saving
-                needName = makeFile(fileType.toLowerCase(), docRef, newFileName)     
+        while (needName) {
+            // Increment the file number
+            fileNumber = fileNumber + 1;
+        
+            // Make the file number 4 digits with zeros
+            switch ((fileNumber.toString()).length) {
+                case 1:
+                    newFileName = allButFive + '_0000' + fileNumber.toString();
+                    break;
+                case 2:
+                    newFileName = allButFive + '_000' + fileNumber.toString();
+                    break;
+                case 3:
+                    newFileName = allButFive + '_00' + fileNumber.toString();
+                    break;
+                case 4:
+                    newFileName = allButFive + '_0' + fileNumber.toString();
+                    break;
+                case 5:
+                    newFileName = allButFive + "_" + fileNumber.toString();
+                    break;
             }
+            // Do the saving
+            needName = makeFile(fileType.toLowerCase(), docRef, newFileName)     
         }
-
     }
     catch(e)
     {
@@ -94,7 +92,7 @@ if ( documents.length > 0 )
 }
 else
 {
-    alert( "There's no file open! GET TO WORK!!!!");
+    alert( "There's no file open! GET TO WORK!!!! :]");
 }
 
 // Function for saving the file
