@@ -99,74 +99,37 @@ else
 
 // Function for saving the file
 function makeFile(fileType, docRef, newFileName) {
-    needName = 1;
+    thisSameFile = docRef.path + '/' + newFileName + '.' + fileType.toLowerCase();
+    saveFile = new File(thisSameFile);
+    if (saveFile.exists) {
+        return 1;
+    }
     switch (fileType.toLowerCase()) {
         case 'psd': // Photoshop file
-            thisSameFile = docRef.path + '/' + newFileName + '.psd';
-            saveFile = new File(thisSameFile);
-            if (saveFile.exists) {
-                break;
-            }
-            else {
-                saveOpt = new PhotoshopSaveOptions();
-                saveOpt.embedColorProfile = true;
-                saveOpt.layers = true;
-                app.activeDocument.saveAs(saveFile,saveOpt,true,Extension.LOWERCASE);
-                needName = 0;
-                app.activeDocument.close(saveOpt.DONOTSAVECHANGES);
-                open(saveFile);
-                break;
-            }
+            saveOpt = new PhotoshopSaveOptions();
+            saveOpt.embedColorProfile = true;
+            saveOpt.layers = true;
+            break;
         case 'jpg': // JPEG file
-            thisSameFile = docRef.path + '/' + newFileName + '.jpg';
-            saveFile = new File(thisSameFile);
-            if (saveFile.exists) {
-                break;
-            }
-            else {
-                saveOpt = new JPEGSaveOptions();
-                saveOpt.embedColorProfile = true;
-                saveOpt.formatOptions = FormatOptions.STANDARDBASELINE;
-                saveOpt.matte = MatteType.NONE;
-                saveOpt.quality = 12;
-                app.activeDocument.saveAs(saveFile,saveOpt,true,Extension.LOWERCASE);
-                needName = 0;
-                app.activeDocument.close(saveOpt.DONOTSAVECHANGES);
-                open(saveFile);
-                break;
-            }
+            saveOpt = new JPEGSaveOptions();
+            saveOpt.embedColorProfile = true;
+            saveOpt.formatOptions = FormatOptions.STANDARDBASELINE;
+            saveOpt.matte = MatteType.NONE;
+            saveOpt.quality = 12;
+            break;
         case 'png': // PNG file
-            thisSameFile = docRef.path + '/' + newFileName + '.png';
-            saveFile = new File(thisSameFile);
-            if (saveFile.exists) {
-                break;
-            }
-            else {
-                saveOpt = new PNGSaveOptions();
-                saveOpt.compression = 0;
-                app.activeDocument.saveAs(saveFile,saveOpt,true,Extension.LOWERCASE);
-                needName = 0;
-                app.activeDocument.close(saveOpt.DONOTSAVECHANGES);
-                open(saveFile);
-                break;
-            }
+            saveOpt = new PNGSaveOptions();
+            saveOpt.compression = 0;
+            break;
         case 'tif': // TIFF file
-            thisSameFile = docRef.path + '/' + newFileName + '.tif';
-            saveFile = new File(thisSameFile);
-            if (saveFile.exists) {
-                break;
-            }
-            else {
-                saveOpt = new TiffSaveOptions();
-                saveOpt.embedColorProfile = true;
-                saveOpt.layers = false;
-                saveOpt.transparency = true;
-                app.activeDocument.saveAs(saveFile,saveOpt,true,Extension.LOWERCASE);
-                needName = 0;
-                app.activeDocument.close(saveOpt.DONOTSAVECHANGES);
-                open(saveFile);
-                break;
-            }
+            saveOpt = new TiffSaveOptions();
+            saveOpt.embedColorProfile = true;
+            saveOpt.layers = false;
+            saveOpt.transparency = true;
+            break;
     }
-    return needName;
+    app.activeDocument.saveAs(saveFile,saveOpt,true,Extension.LOWERCASE);
+    app.activeDocument.close(saveOpt.DONOTSAVECHANGES);
+    open(saveFile);
+    return 0;
  }
