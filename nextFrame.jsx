@@ -97,12 +97,12 @@ else
 
 // Function for saving the file
 function makeFile(fileType, docRef, newFileName) {
-    thisSameFile = docRef.path + '/' + newFileName + '.' + fileType.toLowerCase();
+    thisSameFile = docRef.path + '/' + newFileName + '.' + fileType;
     saveFile = new File(thisSameFile);
     if (saveFile.exists) {
         return 1;
     }
-    switch (fileType.toLowerCase()) {
+    switch (fileType) {
         case 'psd': // Photoshop file
             saveOpt = new PhotoshopSaveOptions();
             saveOpt.embedColorProfile = true;
