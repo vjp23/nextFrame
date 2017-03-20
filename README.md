@@ -14,4 +14,5 @@ Ex. A file named skeltaldoot.psd is open, and has been edited. Timmy uses nextFr
 If Timmy is working on skeltaldoot_00001.psd when he uses nextFame, and skeltaldoot_00002.psd already exists, then the file will be saved as skeltaldoot_00003.psd instead. skeltaldoot_00002.psd will not be overwritten.
 
 Works ONLY on .jpg, .tiff, .psd, and .png files.
+
 --3.20.17 vjp
